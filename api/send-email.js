@@ -1,4 +1,6 @@
-
+export const config = {
+     runtime: "nodejs", 
+    };
 import nodemailer from "nodemailer";
 import { MongoClient } from "mongodb";
 
