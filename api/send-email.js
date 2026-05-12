@@ -1,8 +1,12 @@
+
 export const config = {
-     runtime: "nodejs", 
-    };
-import nodemailer from "nodemailer";
+  runtime: "nodejs",
+};
+
+import { Resend } from "resend";
 import { MongoClient } from "mongodb";
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 const client = new MongoClient(process.env.MONGODB_URI);
 
@@ -10,26 +14,11 @@ export default async function handler(req, res) {
 
   if (req.method !== "POST") {
     return res.status(405).json({
-      message: "Method not allowed"
+      message: "Method not allowed",
     });
   }
 
   const { name, email, message } = req.body;
-  
-
-
-const transporter = nodemailer.createTransport({
-
-  service: "gmail",
-
-  auth: {
-    user: "cubecorpsol@gmail.com",
-    pass: process.env.EMAIL_PASS
-  }
-});
-
-
-
 
   try {
 
@@ -45,45 +34,45 @@ const transporter = nodemailer.createTransport({
       email,
       message,
 
-      createdAt: new Date()
+      createdAt: new Date(),
     });
 
-    await transporter.sendMail({
+    await resend.emails.send({
 
-      from: "cubecorpsol@gmail.com",
+      from: "onboarding@resend.dev",
 
       to: email,
 
       subject: "Thank You for Contacting Kannan Blue Metals",
 
       html: `
-      <div style="font-family:Arial;padding:20px">
+        <div style="font-family:Arial;padding:20px">
 
-      <h2>Dear ${name},</h2>
+          <h2>Dear ${name},</h2>
 
-      <p>
-      Thank you for contacting
-      Kannan Infra Projects India Private Limited.
-      </p>
+          <p>
+            Thank you for contacting
+            Kannan Infra Projects India Private Limited.
+          </p>
 
-      <p>
-      We have successfully received your enquiry.
-      Our team will get in touch with you shortly.
-      </p>
+          <p>
+            We have successfully received your enquiry.
+            Our team will get in touch with you shortly.
+          </p>
 
-      <br>
+          <br>
 
-      <p>
-      Regards,<br>
-      Kannan Blue Metals
-      </p>
+          <p>
+            Regards,<br>
+            Kannan Blue Metals
+          </p>
 
-      </div>
-      `
+        </div>
+      `,
     });
 
     return res.status(200).json({
-      message: "Email sent successfully"
+      message: "Email sent successfully",
     });
 
   } catch (error) {
@@ -91,7 +80,7 @@ const transporter = nodemailer.createTransport({
     console.log(error);
 
     return res.status(500).json({
-      error: error.message
+      error: error.message,
     });
   }
 }
