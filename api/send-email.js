@@ -13,20 +13,23 @@ export default async function handler(req, res) {
   }
 
   const { name, email, message } = req.body;
+  
 
-  const transporter = nodemailer.createTransport({
+const transporter = nodemailer.createTransport({
 
-    host: "smtp.gmail.com",
+  service: "gmail",
 
-    port: 587,
+  auth: {
+    user: "cubecorpsol@gmail.com",
+    pass: process.env.EMAIL_PASS
+  },
 
-    secure: false,
+  tls: {
+    rejectUnauthorized: false
+  }
+});
 
-    auth: {
-      user: "cubecorpsol@gmail.com",
-      pass: process.env.EMAIL_PASS
-    }
-  });
+
 
   try {
 
