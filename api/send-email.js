@@ -18,9 +18,9 @@ export default async function handler(req, res) {
 
     host: "smtp.gmail.com",
 
-    port: 465,
+    port: 587,
 
-    secure: true,
+    secure: false,
 
     auth: {
       user: "cubecorpsol@gmail.com",
