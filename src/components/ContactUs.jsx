@@ -24,20 +24,34 @@ const handleSubmit = async (e) => {
 
   try {
 
-    const response = await fetch("/api/send-email", {
+    
+const response = await fetch("/api/send-email", {
 
-      method: "POST",
+  method: "POST",
 
-      headers: {
-        "Content-Type": "application/json",
-      },
+  headers: {
+    "Content-Type": "application/json",
+  },
 
-      body: JSON.stringify(data),
-    });
+  body: JSON.stringify(data),
+});
 
-    const result = await response.json();
+const result = await response.json();
 
-    alert(result.message);
+console.log(result);
+
+if (response.ok) {
+
+  alert("Email sent successfully");
+
+} else {
+
+  alert(result.error || "Email failed");
+}
+
+
+
+    
 
   } catch (error) {
 
