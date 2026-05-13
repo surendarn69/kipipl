@@ -33,7 +33,7 @@ export default async function handler(req, res) {
 "name": String(name),
 "email": String(email),
 "message": String(message),
-"createdAt": new Date().toISOString(),
+"createdAt": new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata", }),
         
       }),
     });
