@@ -4,17 +4,8 @@ export const config = {
 };
 
 import { Resend } from "resend";
-import { MongoClient } from "mongodb";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
-
-const client = new MongoClient(process.env.MONGODB_URI, {
-
-  tls: true,
-
-  tlsAllowInvalidCertificates: true,
-});
-
 
 export default async function handler(req, res) {
 
@@ -28,20 +19,28 @@ export default async function handler(req, res) {
 
   try {
 
-    await client.connect();
+    // SAVE TO GOOGLE SHEET
 
-    const db = client.db("kipipl");
+    await fetch("https://sheetdb.io/api/v1/1m8446hk9irof", {
 
-    const collection = db.collection("enquiries");
+      method: "POST",
 
-    await collection.insertOne({
+      headers: {
+        "Content-Type": "application/json",
+      },
 
-      name,
-      email,
-      message,
+      body: JSON.stringify({
 
-      createdAt: new Date(),
+        data: [{
+          name,
+          email,
+          message,
+          createdAt: new Date(),
+        }],
+      }),
     });
+
+    // SEND EMAIL
 
     await resend.emails.send({
 
