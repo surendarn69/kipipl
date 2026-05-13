@@ -9,6 +9,7 @@ import BlueMetals from "./components/BlueMetals";
 import ReadyMix from "./components/ReadyMix";
 import Contact from "./components/ContactUs";
 
+
 function App() {
   return (
     <Router>
@@ -20,6 +21,7 @@ function App() {
         <Route path="/bluemetals" element={<BlueMetals />} />
         <Route path="/readymix" element={<ReadyMix />} />
         <Route path="/contact" element={<Contact />} />
+        
       </Routes>
     </Router>
   );
