@@ -31,12 +31,12 @@ export default async function handler(req, res) {
 
       body: JSON.stringify({
 
-        data: [{
+        data: {
           name,
           email,
           message,
           createdAt: new Date(),
-        }],
+        },
       }),
     });
 
