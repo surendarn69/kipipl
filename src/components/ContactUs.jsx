@@ -21,6 +21,7 @@ const handleSubmit = async (e) => {
 
     message: formData.get("message"),
   };
+  console.log(data);
 
   try {
 
