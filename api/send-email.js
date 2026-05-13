@@ -21,7 +21,7 @@ export default async function handler(req, res) {
 
     // SAVE TO GOOGLE SHEET
 
-    await fetch("https://sheetdb.io/api/v1/roeov71r9u0x5", {
+    await fetch("https://sheetdb.io/api/v1/cevobhns37l5z", {
 
       method: "POST",
 
