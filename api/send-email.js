@@ -8,7 +8,13 @@ import { MongoClient } from "mongodb";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-const client = new MongoClient(process.env.MONGODB_URI);
+const client = new MongoClient(process.env.MONGODB_URI, {
+
+  tls: true,
+
+  tlsAllowInvalidCertificates: true,
+});
+
 
 export default async function handler(req, res) {
 
