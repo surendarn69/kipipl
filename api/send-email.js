@@ -30,10 +30,10 @@ export default async function handler(req, res) {
       },
 
       body: JSON.stringify({
-          name: name,
-         email: email, 
-         message: message, 
-         createdAt: new Date(),
+"name": String(name),
+"email": String(email),
+"message": String(message),
+"createdAt": new Date().toISOString(),
         
       }),
     });
